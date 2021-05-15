@@ -39,7 +39,7 @@ Matrix read_matrix(char *path , int ***matrix){
   mat.column = columns_num;
 
   print_matrix(mat);
-
+  return mat;
 }
 
 void read_matrix_elements(FILE *fp , int ** matrix , int rows , int cols){

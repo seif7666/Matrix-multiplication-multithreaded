@@ -18,6 +18,7 @@ int main(int argc , char *argv[]){
     strcpy(path2 , argv[2]);
     strcpy(path3 , argv[3]);
   }
+
   printf("Path 1 is %s\n",path1 );
   printf("Path 2 is %s\n",path2 );
   printf("Path 3 is %s\n",path3 );
@@ -31,6 +32,6 @@ int main(int argc , char *argv[]){
     printf("Invalid bounds!\n");
     return -1;
   }
-  Matrix c=multiply(mat1 , mat2);
+  multiply(mat1 , mat2);
   return 0;
 }
