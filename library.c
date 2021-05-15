@@ -10,6 +10,10 @@
 //row=10 col=5
 Matrix read_matrix(char *path , int ***matrix){
   FILE *fp = fopen(path , "r");
+  if(fp == NULL){
+    printf("Path %s Was not found!!\n",path );
+    exit(-1);
+  }
   char rows[SIZE] , columns[SIZE];
   fscanf(fp , "%s" , rows);
   fscanf(fp , "%s" , columns);
@@ -27,12 +31,8 @@ Matrix read_matrix(char *path , int ***matrix){
   }
 
   read_matrix_elements(fp , *matrix , rows_num , columns_num);
-  // for(int i = 0;i<rows_num ; i++)
-  //   for(int j = 0; j<columns_num ; j++)
-  //     (*matrix)[i][j] = i*j;
-  //
-  // print_array(*matrix , rows_num , columns_num);
 
+  fclose(fp);
   Matrix mat;
   mat.array = *matrix;
   mat.row = rows_num;
@@ -53,6 +53,18 @@ void read_matrix_elements(FILE *fp , int ** matrix , int rows , int cols){
     }
 
   }
+}
+
+void write_matrix_to_file(int **result,int row,int column , char*path){
+
+  FILE *fp = fopen(path , "w");
+  for(int i = 0 ; i<row;i++){
+    for(int j = 0 ; j<column ; j++){
+       fprintf(fp,"%d\t",result[i][j]);
+    }
+    fprintf(fp, "\n");
+  }
+  fclose(fp);
 }
 
 int get_number(char *str){

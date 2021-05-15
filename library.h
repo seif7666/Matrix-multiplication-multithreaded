@@ -15,3 +15,4 @@ int get_number(char *);
 int get_number_from_str(char *);
 void print_array(int** , int , int);
 void print_matrix(Matrix matrix);
+void write_matrix_to_file(int **result,int row,int column , char*path);

@@ -32,6 +32,7 @@ int main(int argc , char *argv[]){
     printf("Invalid bounds!\n");
     return -1;
   }
-  multiply(mat1 , mat2);
+  Matrix result=multiply(mat1 , mat2);
+  write_matrix_to_file(result.array ,result.row , result.column , path3);
   return 0;
 }
