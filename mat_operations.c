@@ -1,7 +1,7 @@
 #include "mat_operations.h"
 
 struct timeval stop, start;
-
+const char* spaces = "___________________________________________________________";
 
 char is_valid_for_multiplications(Matrix mat1 , Matrix mat2){
       return mat1.column == mat2.row;
@@ -17,21 +17,31 @@ Matrix multiply(Matrix mat1 , Matrix mat2){
       results[m].array[i] = calloc(results[m].column , sizeof(int));
   }
 
+  printf("First method\n");
   gettimeofday(&start, NULL); //start checking time
   multiply_first_method(mat1 , mat2 , results[0]);
   gettimeofday(&stop, NULL); //end checking time
   printf("Microseconds taken first method: %lu\n", stop.tv_usec - start.tv_usec);
+  printf("%s\n",spaces);
+  sleep(2);
 
+  printf("Second method\n");
   gettimeofday(&start, NULL); //start checking time
   multiply_second_method(mat1 , mat2 , results[1]);
   gettimeofday(&stop, NULL); //end checking time
   printf("Microseconds taken Second method: %lu\n", stop.tv_usec - start.tv_usec);
+  printf("%s\n",spaces);
+  sleep(2);
 
+  printf("Third method\n");
   gettimeofday(&start, NULL); //start checking time
   multiply_third_method(mat1 , mat2 , results[2]);
   gettimeofday(&stop, NULL); //end checking time
   printf("Microseconds taken Third method: %lu\n", stop.tv_usec - start.tv_usec);
+  printf("%s\n",spaces);
+  sleep(2);
 
+//Now we check that they give the same solution.
   for(int i = 0 ;i<mat1.row ; i++)
     for(int j = 0;j<mat2.column ; j++){
       if(results[0].array[i][j] != results[1].array[i][j] || results[0].array[i][j] != results[2].array[i][j]){
@@ -43,6 +53,7 @@ Matrix multiply(Matrix mat1 , Matrix mat2){
         return results[0];
       }
     }
+  printf("Results are same\n");
   free(results[1].array);
   free(results[2].array);
   return results[0];
@@ -54,6 +65,7 @@ void multiply_first_method(Matrix mat1 , Matrix mat2 , Matrix result){
         result.array[i][j] = row_times_column(mat1.array , mat2.array , i , j , mat1.column);
     }
   }
+  printf("No thread was created\n");
 }
 
 void multiply_second_method(Matrix mat1 , Matrix mat2 , Matrix result){
@@ -71,6 +83,7 @@ void multiply_second_method(Matrix mat1 , Matrix mat2 , Matrix result){
   for(int i = 0 ;i<result.row ; i++){
     pthread_join(thread_ids[i], NULL);
   }
+  printf("%d threads were created\n" , result.row);
 }
 
 void multiply_third_method(Matrix mat1 , Matrix mat2 , Matrix result){
@@ -92,6 +105,7 @@ void multiply_third_method(Matrix mat1 , Matrix mat2 , Matrix result){
       for(int j = 0;j<result.column ; j++){
         pthread_join(thread_ids[i][j] , NULL);
       }
+    printf("%d threads were created\n",result.row*result.column );
 }
 
 void * operation_per_row(void *args){

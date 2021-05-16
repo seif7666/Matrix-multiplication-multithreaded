@@ -19,9 +19,6 @@ int main(int argc , char *argv[]){
     strcpy(path3 , argv[3]);
   }
 
-  printf("Path 1 is %s\n",path1 );
-  printf("Path 2 is %s\n",path2 );
-  printf("Path 3 is %s\n",path3 );
   int **matrix1 , **matrix2;
   Matrix mat1 , mat2;
 
@@ -34,5 +31,6 @@ int main(int argc , char *argv[]){
   }
   Matrix result=multiply(mat1 , mat2);
   write_matrix_to_file(result.array ,result.row , result.column , path3);
+  printf("Results are written to path %s\n", path3);
   return 0;
 }

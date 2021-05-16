@@ -38,7 +38,7 @@ Matrix read_matrix(char *path , int ***matrix){
   mat.row = rows_num;
   mat.column = columns_num;
 
-  print_matrix(mat);
+  // print_matrix(mat);
   return mat;
 }
 
